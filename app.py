@@ -35,9 +35,8 @@ def Register():
 
             db.session.add(usertable)
             db.session.commit()
-            return "Membership successful"
-        return redirect('/login')
-        
+            return redirect('/')
+    
 
 
 # get image data
