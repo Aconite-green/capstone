@@ -1,6 +1,7 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, url_for
 import os
-from models import db, User
+
+
 # For getting image data
 # import pickle
 # import numpy as np 
@@ -15,45 +16,45 @@ app = Flask(__name__)
 def Landing():
     return render_template('Landing.html')
 
+
+userinfo = {'po' : 'po'}
 # sign in!
 @app.route('/register', methods = ['GET','POST'])
 def Register():
-    if request.method =='GET':
-        return render_template('Register.html')
+    if request.method == 'POST':
+        userinfo[request.form['username']] = request.form['password']
+        return redirect(url_for('Login'))
     else:
-        userid =request.form.get('userid')
-        email = request.form.get('email')
-        password = request.form.get('password')
-
-        if not(userid and email and password):
-            return "Please fill in all blanks"
-        else:
-            usertable = User()
-            usertable.userid = userid
-            usertable.email = email
-            usertable.password = password
-
-            db.session.add(usertable)
-            db.session.commit()
-            return redirect('/')
+        return render_template('Register.html')
     
 
 
+# show image using model
+@app.route('/login', methods = ['Get', 'POST'])
+def Login():
+    if request.method == 'POST':
+        name = request.form['username']
+        password = request.form['password']
+        try:
+            if name in userinfo:
+                if userinfo[name] == password:                  
+                    return redirect(url_for('Upload'))
+                else:
+                    return 'Wrong Password!'
+            return 'ID does not exist'
+        except:
+            return 'Sorry get out'
+    else:
+        return render_template('Login.html')
+
 # get image data
-@app.route('/upload', methods = ['POST'])
+@app.route('/upload', methods = ['GET', 'POST'])
 def Upload():
-    pass
+    return render_template('Upload.html')
 
 # show image using model
 @app.route('/items', methods = ['POST'])
 def Items():
-    pass
-
-
-
-# show image using model
-@app.route('/login', methods = ['POST'])
-def Login():
     pass
 
 # show image using model
@@ -64,17 +65,5 @@ def Closet():
 
 
 if __name__ == "__main__":
-    #데이터베이스---------
-    basedir = os.path.abspath(os.path.dirname(__file__)) #현재 파일이 있는 디렉토리 절대 경로
-    dbfile = os.path.join(basedir, 'db.sqlite') #데이터베이스 파일을 만든다
-
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + dbfile
-    app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True #사용자에게 정보 전달완료하면 teadown. 그 때마다 커밋=DB반영
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False #추가 메모리를 사용하므로 꺼둔다
-
-#    db = SQLAlchemy() #SQLAlchemy를 사용해 데이터베이스 저장
-    db.init_app(app) #app설정값 초기화
-    db.app = app #Models.py에서 db를 가져와서 db.app에 app을 명시적으로 넣는다
-    db.create_all() #DB생성
-
+   
     app.run(host="127.0.0.1", port=5000, debug=True)
