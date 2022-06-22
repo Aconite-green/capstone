@@ -1,10 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for
 import os
 
+from werkzeug.utils import secure_filename
 
-# For getting image data
-# import pickle
-# import numpy as np 
 
 # load model.py
 # model = pickle.load(open('filename.pkl', 'rb'))
@@ -38,7 +36,7 @@ def Login():
         try:
             if name in userinfo:
                 if userinfo[name] == password:                  
-                    return redirect(url_for('Upload'))
+                    return redirect(url_for('Upload_hat'))
                 else:
                     return 'Wrong Password!'
             return 'ID does not exist'
@@ -48,19 +46,24 @@ def Login():
         return render_template('Login.html')
 
 # get image data
-@app.route('/upload', methods = ['GET', 'POST'])
-def Upload():
-    return render_template('Upload.html')
+@app.route('/uploadhat', methods = ['GET', 'POST'])
+def Upload_hat():
+    if request.method == 'POST':
+        f = request.files['file']
+        f.save('./clothes/hat' + f.filename)
+        return redirect(url_for('Upload_outer'))
+    return render_template('Upload_hat.html')
+
+@app.route('/uploadouter', methods = ['GET', 'POST'])
+def Upload_outer():
+        return render_template('Upload_outer.html')
+
 
 # show image using model
 @app.route('/items', methods = ['POST'])
 def Items():
     pass
 
-# show image using model
-@app.route('/closet', methods = ['POST'])
-def Closet():
-    pass
 
 
 
