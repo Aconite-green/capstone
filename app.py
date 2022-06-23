@@ -3,10 +3,6 @@ import os
 
 from werkzeug.utils import secure_filename
 
-
-# load model.py
-# model = pickle.load(open('filename.pkl', 'rb'))
-
 app = Flask(__name__)
 
 # show Home page
@@ -50,23 +46,18 @@ def Login():
 def Upload_hat():
     if request.method == 'POST':
         f = request.files['file']
-        f.save('./clothes/hat' + f.filename)
-        return redirect(url_for('Upload_outer'))
-    return render_template('Upload_hat.html')
+        f.save(f.filename)
+        return "uploaded successfully"
+    else:
+        return render_template('Upload_hat.html')
+    
 
 @app.route('/uploadouter', methods = ['GET', 'POST'])
 def Upload_outer():
         return render_template('Upload_outer.html')
 
 
-# show image using model
-@app.route('/items', methods = ['POST'])
-def Items():
-    pass
-
-
-
 
 if __name__ == "__main__":
    
-    app.run(host="127.0.0.1", port=5000, debug=True)
+    app.run(debug=True)
