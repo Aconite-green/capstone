@@ -3,7 +3,7 @@ import os
 import sys
 
 from werkzeug.utils import secure_filename
-
+# how to do it
 app = Flask(__name__)
 
 # show Home page
