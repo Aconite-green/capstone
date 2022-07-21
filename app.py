@@ -20,7 +20,7 @@ def Register():
         userinfo[request.form['username']] = request.form['password']
         return redirect(url_for('Login'))
     else:
-        return render_template('Register.html')
+        return render_template('Signup.html')
     
 
 
