@@ -59,7 +59,7 @@ def Login():
 # get image data
 @app.route('/uploadshirts')
 def index_shirts():
-    files = os.listdir(app.config['UPLOAD_PATH'])
+    files = os.listdir('shirts')
     return render_template('Upload_shirts.html', files=files)
 
 @app.route('/uploadshirts', methods = ['POST'])
@@ -71,12 +71,12 @@ def Upload_shirts():
         if file_ext not in app.config['UPLOAD_EXTENSIONS'] or \
                 file_ext != validate_image(uploaded_file.stream):
             return "Invalid image", 400
-        uploaded_file.save(os.path.join(app.config['UPLOAD_PATH'], filename))
+        uploaded_file.save(os.path.join('shirts', filename))
     return '', 204
 
 @app.route('/uploads/<filename>')
 def upload(filename):
-    return send_from_directory(app.config['UPLOAD_PATH'], filename)
+    return send_from_directory('shirts', filename)
 
 
 if __name__ == "__main__":
