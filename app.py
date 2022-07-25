@@ -14,7 +14,7 @@ def Landing():
 
 userinfo = {'po' : 'po'}
 # sign in!
-@app.route('/register', methods = ['GET','POST'])
+@app.route('/signup', methods = ['GET','POST'])
 def Register():
     if request.method == 'POST':
         userinfo[request.form['username']] = request.form['password']
@@ -33,7 +33,7 @@ def Login():
         try:
             if name in userinfo:
                 if userinfo[name] == password:                  
-                    return redirect(url_for('Upload_hat'))
+                    return redirect(url_for('Upload_shirts'))
                 else:
                     return 'Wrong Password!'
             return 'ID does not exist'
@@ -43,22 +43,16 @@ def Login():
         return render_template('Login.html')
 
 # get image data
-@app.route('/uploadhat', methods = ['GET', 'POST'])
-def Upload_hat():
+@app.route('/uploadshirts', methods = ['GET', 'POST'])
+def Upload_shirts():
     if request.method == 'POST':
         f = request.files['file']
         f.save(f.filename)
         return "uploaded successfully"
     else:
-        return render_template('Upload_hat.html')
+        return render_template('Upload_shirts.html')
     
-
-@app.route('/uploadouter', methods = ['GET', 'POST'])
-def Upload_outer():
-        return render_template('Upload_outer.html')
-
 
 
 if __name__ == "__main__":
-   
     app.run(debug=True)
