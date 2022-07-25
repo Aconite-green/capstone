@@ -51,7 +51,11 @@ def Upload_shirts():
         return "uploaded successfully"
     else:
         return render_template('Upload_shirts.html')
-    
+
+# end
+@app.route('/end', methods = ['GET'])
+def end():
+    return "end"
 
 
 if __name__ == "__main__":
