@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    
+    <title>Signup</title>
+
     <!-- css -->
     <link rel="stylesheet" href="/static/css/common.css">
-    <link rel="stylesheet" href="/static/css/Signup/header.css"> <!--/Front_End/asset/css/Signup/header.css-->
-    <link rel="stylesheet" href="/static/css/Signup/main.css"> <!--/Front_End/asset/css/Signup/main.css-->
+    <link rel="stylesheet" href="/static/css/Signup/header.css">
+    <link rel="stylesheet" href="/static/css/Signup/main.css">
 
     <!-- font awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -33,9 +33,15 @@
                 <li>
                     <h4>Hello!</h4>
                     <p>sign up to make your closet</p>
-                    <form method = "POST" action="">    
-                        <input type="text" id="username" name="username" placeholder="Full-name">
-                        <input type="password" id="password" name="password" placeholder="Password">
+                    <form method = "POST" action="">
+                        <div>
+                            <i class="fa-solid fa-id-badge"></i>
+                            <input type="text" id="username" name="username" placeholder="Full-name">
+                        </div>
+                        <div>
+                            <i class="fa-solid fa-key"></i>
+                            <input type="password" id="password" name="password" placeholder="Password">
+                        </div>
                         <a href="/login">Register</a>
                     </form>
                 </li>
